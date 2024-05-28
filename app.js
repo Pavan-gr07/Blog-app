@@ -15,6 +15,7 @@ const blogRoute = require("./routes/blog");
 
 const app = express();
 
+console.log(process.env.MONGO_URL, "jk");
 mongoose
   .connect(process.env.MONGO_URL)
   .then((e) => console.log("MongoDB Connect"))
