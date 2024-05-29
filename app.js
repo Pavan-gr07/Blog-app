@@ -17,7 +17,7 @@ const app = express();
 
 console.log(process.env.MONGO_URL, "jk");
 mongoose
-  .connect(mongodb://atlas-sql-664c355a92e3ca6c578293c1-lyd2h.a.query.mongodb.net/myVirtualDatabase?ssl=true&authSource=admin)
+  .connect(process.env.MONGO_URL)
   .then((e) => console.log("MongoDB Connect"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
