@@ -3,9 +3,16 @@
   <head>
     <%- include('./partials/head') %>
     <title>Add New Blog</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- Include Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <%- include('./partials/nav') %>
+
     <div class="container mt-3">
       <form action="/blog" method="post" enctype="multipart/form-data">
         <div class="mb-3">
@@ -16,6 +23,14 @@
             id="coverImage"
             class="form-control"
             aria-describedby="coverImage"
+            onchange="previewImage(event)"
+          />
+          <img
+            id="coverImagePreview"
+            src="#"
+            alt="Cover Image Preview"
+            class="img-fluid mt-3 d-none"
+            style="min-width: 200px; height: 200px"
           />
         </div>
         <div class="mb-3">
@@ -26,6 +41,7 @@
             id="title"
             class="form-control"
             aria-describedby="title"
+            required
           />
         </div>
         <div class="mb-3">
@@ -35,6 +51,8 @@
             placeholder="Leave a Body here"
             id="body"
             name="body"
+            rows="6"
+            required
           ></textarea>
         </div>
         <div class="mb-3">
@@ -42,6 +60,44 @@
         </div>
       </form>
     </div>
+
     <%- include('./partials/scripts') %>
+
+    <!-- Include Bootstrap JS and dependencies -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXlTu3Fn5BXTz0LTPlbWT5jLk1lU/rfcbwFmcYyfScjQIbIAmJW5d9aF5IdT"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgEP/2iPk7TOqfepf3VvPsySPlZiiOYtUmSHEa+hURQ2tSA1nTf"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Custom Script to Preview Image -->
+    <script>
+      function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById("coverImagePreview");
+        const file = input.files[0];
+
+        if (file) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove("d-none");
+          };
+
+          reader.readAsDataURL(file);
+        }
+      }
+    </script>
   </body>
 </html>

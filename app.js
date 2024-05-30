@@ -15,7 +15,7 @@ const blogRoute = require("./routes/blog");
 
 const app = express();
 
-console.log(process.env.MONGO_URL, "jk");
+// console.log(process.env.MONGO_URL, "jk");
 mongoose
   .connect(process.env.MONGO_URL)
   .then((e) => console.log("MongoDB Connect"))
@@ -30,6 +30,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(checkForAuthentication("token"));
 app.use(express.static(path.resolve("./public")));
+
+// Serve static files from the public folder
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", async (req, res) => {
   const allBlogs = await Blog.find({});

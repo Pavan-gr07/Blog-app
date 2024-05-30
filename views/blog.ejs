@@ -3,32 +3,40 @@
   <head>
     <%- include('./partials/head') %>
     <title><%= blog.title %></title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- Include Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <%- include('./partials/nav') %>
+
     <div class="container mt-4">
-      <h3><%= blog.title %></h3>
-      <img
-        src="<%= blog.coverImageURL %>"
-        width="700px"
-        alt="Cover Image for <%= blog.title %>"
-      />
-      <pre class="mt-3"><%= blog.body %></pre>
+      <h3 class="text-center"><%= blog.title %></h3>
+      <div class="text-center">
+        <img
+          src="<%= blog.coverImageURL %>"
+          class="img-fluid"
+          alt="Cover Image for <%= blog.title %>"
+        />
+      </div>
+      <p class="mt-3"><%= blog.body %></p>
     </div>
 
     <div class="container mt-4 d-flex align-items-center">
       <img
         src="<%= blog.createdBy.profileImageURl %>"
-        width="50px"
-        height="50px"
-        alt="<%= blog.createdBy.fullName %>"
         class="rounded-circle"
+        alt="<%= blog.createdBy.fullName %>"
+        style="width: 50px; height: 50px"
       />
       <span class="ms-2"><%= blog.createdBy.fullName %></span>
     </div>
 
     <div class="container mt-3">
-      <h3>Comments(<%= comments.length %>)</h3>
+      <h3>Comments (<%= comments.length %>)</h3>
 
       <!-- Form to add a new comment -->
       <form action="/blog/comment/<%= blog._id %>" method="post">
@@ -37,8 +45,8 @@
             type="text"
             class="form-control"
             name="content"
-            placeholder="Enter your Comments..."
-            aria-describedby="emailHelp"
+            placeholder="Enter your comment..."
+            required
           />
         </div>
         <button type="submit" class="btn btn-primary">Add</button>
@@ -47,17 +55,16 @@
       <!-- Display existing comments -->
       <div class="mt-4">
         <% comments.forEach(comment => { %>
-        <div class="d-flex align-items-center mb-2">
+        <div class="d-flex align-items-center mb-3">
           <img
-            src="<%= blog.createdBy.profileImageURl %>"
-            width="50px"
-            height="50px"
-            alt="<%= blog.createdBy.fullName %>"
+            src="<%= comment.createdBy.profileImageURl %>"
             class="rounded-circle"
+            alt="<%= comment.createdBy.fullName %>"
+            style="width: 50px; height: 50px"
           />
           <div class="ms-2">
             <strong><%= comment.createdBy.fullName %></strong>
-            <p><%= comment.content %></p>
+            <p class="mb-0"><%= comment.content %></p>
           </div>
         </div>
         <% }) %>
@@ -65,5 +72,22 @@
     </div>
 
     <%- include('./partials/scripts') %>
+
+    <!-- Include Bootstrap JS and dependencies -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXlTu3Fn5BXTz0LTPlbWT5jLk1lU/rfcbwFmcYyfScjQIbIAmJW5d9aF5IdT"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgEP/2iPk7TOqfepf3VvPsySPlZiiOYtUmSHEa+hURQ2tSA1nTf"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
